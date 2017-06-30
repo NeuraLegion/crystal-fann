@@ -1,0 +1,9 @@
+name: crystal-fann
+version: 0.1.0
+
+authors:
+  - bararchy <bar.hofesh@safe-t.com>
+
+crystal: 0.23.0+1
+
+license: MIT
