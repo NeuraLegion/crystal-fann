@@ -30,11 +30,11 @@ ann.close
 ## Development
 All C lib docs can be found here -> http://libfann.github.io/fann/docs/files/fann-h.html  
 
-- [] Add TrainData class  
-- [] Add network call method to train on train data  
-- [] Add binding to the 'Parallel' binding to work on multi CPU at same time  
-- [] Clean uneeded bindings in the LibFANN binding  
-- [] Add specific Exceptions  
+- [ ] Add TrainData class  
+- [ ] Add network call method to train on train data  
+- [ ] Add binding to the 'Parallel' binding to work on multi CPU at same time  
+- [ ] Clean uneeded bindings in the LibFANN binding  
+- [ ] Add specific Exceptions  
 
 I guess more stuff will be added once more people will use it.  
 
