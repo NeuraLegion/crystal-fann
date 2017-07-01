@@ -40,7 +40,7 @@ describe Crystal::Fann::Network do
     ann = Crystal::Fann::Network.new(2, [2], 1)
     input = [[1.0_f32, 0.1_f32], [0.4_f32, 0.2_f32], [0.3_f32, 0.1_f32]]
     output = [[0.5_f32], [0.3_f32], [0.2_f32]]
-    ann.train_array(input, output, {:max_runs => 8000, :desired_mse => 0.001_f32, :log_each => 100})
+    ann.train_array(input, output, {:max_runs => 8000, :desired_mse => 0.001_f32, :log_each => 1000})
     result = ann.run([0.4_f32, 0.2_f32])
     (result.flatten < [0.4] && result.flatten > [0.2]).should be_true
   end
