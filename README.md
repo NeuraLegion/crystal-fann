@@ -27,11 +27,14 @@ result = ann.run([1.0_f32, 0.1_f32])
 ann.close
 ```
 
-TODO: Write usage instructions here
-
 ## Development
 
-TODO: Write development instructions here
+- [] Add TrainData class  
+- [] Add network call method to train on train data  
+- [] Add binding to the 'Parallel' binding to work on multi CPU at same time  
+- [] Clean uneeded bindings in the LibFANN binding  
+
+I guess more stuff will be added once more people will use it.  
 
 ## Contributing
 
