@@ -1,8 +1,6 @@
 require "./spec_helper"
 
-describe Crystal::Fann do
-  # TODO: Write tests
-
+describe Crystal::Fann::Network do
   it "initializes" do
     ann = Crystal::Fann::Network.new(2, [2, 2], 2)
     ann.nn.is_a?(LibFANN::Fann*).should be_true
