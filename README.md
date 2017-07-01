@@ -28,6 +28,7 @@ ann.close
 ```
 
 ## Development
+All C lib docs can be found here -> http://libfann.github.io/fann/docs/files/fann-h.html  
 
 - [] Add TrainData class  
 - [] Add network call method to train on train data  
@@ -48,3 +49,4 @@ I guess more stuff will be added once more people will use it.
 ## Contributors
 
 - [bararchy](https://github.com/bararchy) - creator, maintainer
+- [libfann](https://github.com/libfann/fann) - c lib creators
