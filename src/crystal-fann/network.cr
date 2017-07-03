@@ -80,6 +80,29 @@ module Crystal::Fann
       LibFANN.cascadetrain_on_data(@nn, train_data, opts[:max_neurons], opts[:log_each], opts[:desired_mse])
     end
 
+    def train_batch_multicore(train_data : Pointer(LibFANN::TrainData), threads : Int32, opts = {:max_runs => 200, :desired_mse => 0.01_f64, :log_each => 1})
+      # fun train_epoch_irpropm_parallel = fann_train_epoch_irpropm_parallel(ann : Fann*, data : TrainData*, threadnumb : LibC::UInt) : LibC::Double
+
+      runs = 0
+      log_count = 0
+      loop do
+        LibFANN.train_epoch_irpropm_parallel(@nn, train_data, threads)
+        # Check if we need to log MSE
+        if log_count >= opts[:log_each]
+          @logger.info("Run: #{runs}, MSE: #{mse}")
+          STDOUT.flush
+          log_count = 0
+        else
+          log_count += 1
+        end
+        # Check MSE and break if we reached goal
+        break if mse <= opts[:desired_mse]
+        # Check run count and break if needed
+        runs += 1
+        break if runs >= opts[:max_runs]
+      end
+    end
+
     def run(input : Array(Float32))
       result = LibFANN.run(@nn, input.to_unsafe)
       Slice.new(result, @output_size).to_a

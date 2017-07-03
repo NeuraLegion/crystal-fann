@@ -431,9 +431,15 @@ lib LibFANN
   fun get_user_data = fann_get_user_data(ann : Fann*) : Void*
   fun disable_seed_rand = fann_disable_seed_rand
   fun enable_seed_rand = fann_enable_seed_rand
+  fun train_epoch_batch_parallel = fann_train_epoch_batch_parallel(ann : Fann*, data : TrainData*, threadnumb : LibC::UInt) : LibC::Double
+  fun train_epoch_irpropm_parallel = fann_train_epoch_irpropm_parallel(ann : Fann*, data : TrainData*, threadnumb : LibC::UInt) : LibC::Double
+  fun train_epoch_quickprop_parallel = fann_train_epoch_quickprop_parallel(ann : Fann*, data : TrainData*, threadnumb : LibC::UInt) : LibC::Double
+  fun train_epoch_sarprop_parallel = fann_train_epoch_sarprop_parallel(ann : Fann*, data : TrainData*, threadnumb : LibC::UInt) : LibC::Double
+  fun train_epoch_incremental_mod = fann_train_epoch_incremental_mod(ann : Fann*, data : TrainData*) : LibC::Double
+  fun test_data_parallel = fann_test_data_parallel(ann : Fann*, data : TrainData*, threadnumb : LibC::UInt) : LibC::Double
   $default_error_log : File*
   $train_names = TRAIN_NAMES : LibC::Char*[5]
-  $activationfunc_names = ACTIVATIONFUNC_NAMES : LibC::Char*[21]
+  $activationsfunc_names = ACTIVATIONFUNC_NAMES : LibC::Char*[21]
   $errorfunc_names = ERRORFUNC_NAMES : LibC::Char*[2]
   $stopfunc_names = STOPFUNC_NAMES : LibC::Char*[2]
   $nettype_names = NETTYPE_NAMES : LibC::Char*[2]
