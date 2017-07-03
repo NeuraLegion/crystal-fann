@@ -55,4 +55,16 @@ describe Crystal::Fann::Network do
     ann.close
     (result < [0.1]).should be_true
   end
+
+  it "set_activation_functions and algorithems" do
+    ann = Crystal::Fann::Network.new(2, [3], 1)
+    input = [[0.0_f32, 0.0_f32], [0.0_f32, 1.0_f32], [1.0_f32, 0.0_f32], [1.0_f32, 1.0_f32]]
+    output = [[0.0_f32], [1.0_f32], [1.0_f32], [0.0_f32]]
+    ann.train_algorithem(LibFANN::TrainEnum::TrainRprop)
+    ann.set_hidden_layer_activation_func(LibFANN::ActivationfuncEnum::SigmoidSymmetric)
+    ann.set_output_layer_activation_func(LibFANN::ActivationfuncEnum::SigmoidSymmetric)
+    result = ann.run([1.0_f32, 1.0_f32])
+    ann.close
+    (result < [0.1]).should be_true
+  end
 end

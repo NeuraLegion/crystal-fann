@@ -24,15 +24,15 @@ module Crystal::Fann
     end
 
     def train_algorithem(algo : LibFANN::TrainEnum)
-      LibFANN.set_training_algorithm(@ann, algo)
+      LibFANN.set_training_algorithm(@nn, algo)
     end
 
     def set_hidden_layer_activation_func(func : LibFANN::ActivationfuncEnum)
-      LibFANN.set_activation_function_hidden(@ann, func)
+      LibFANN.set_activation_function_hidden(@nn, func)
     end
 
     def set_output_layer_activation_func(func : LibFANN::ActivationfuncEnum)
-      LibFANN.set_activation_function_output(@ann, func)
+      LibFANN.set_activation_function_output(@nn, func)
     end
 
     def train_single(input : Array(Float32), output : Array(Float32))
