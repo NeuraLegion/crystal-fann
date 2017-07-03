@@ -35,6 +35,11 @@ module Crystal::Fann
       LibFANN.set_activation_function_output(@nn, func)
     end
 
+    def randomzie_weights(min : Float32, max : Float32)
+      # randomize_weights = fann_randomize_weights(ann : Fann*, min_weight : Type, max_weight : Type)
+      LibFANN.randomize_weights(@nn, min, max)
+    end
+
     def train_single(input : Array(Float32), output : Array(Float32))
       raise "Input size not equal to input neurons" if input.size != @input_size
       raise "Output size not equal to output neurons" if output.size != @output_size
