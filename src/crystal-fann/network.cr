@@ -65,6 +65,11 @@ module Crystal::Fann
       end
     end
 
+    def train_batch(train_data : Pointer(LibFANN::TrainData), opts = {:max_runs => 200, :desired_mse => 0.01_f64, :log_each => 1})
+      # train_on_data = fann_train_on_data(ann : Fann*, data : TrainData*, max_epochs : LibC::UInt, epochs_between_reports : LibC::UInt, desired_error : LibC::Double)
+      LibFANN.train_on_data(@nn, train_data, opts[:max_runs], opts[:log_each], opts[:desired_mse])
+    end
+
     def run(input : Array(Float32))
       result = LibFANN.run(@nn, input.to_unsafe)
       Slice.new(result, @output_size).to_a
