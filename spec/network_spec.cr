@@ -78,6 +78,7 @@ describe Crystal::Fann::Network do
     ann.train_algorithem(LibFANN::TrainEnum::TrainRprop)
     ann.set_hidden_layer_activation_func(LibFANN::ActivationfuncEnum::Linear)
     ann.set_output_layer_activation_func(LibFANN::ActivationfuncEnum::Linear)
+    puts train_data.data_struct.inspect
     if data
       ann.train_batch(data, {:max_runs => 8000, :desired_mse => 0.001_f64, :log_each => 1000})
     end
