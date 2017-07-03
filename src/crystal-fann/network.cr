@@ -41,7 +41,7 @@ module Crystal::Fann
       LibFANN.train(@nn, input.to_unsafe, output.to_unsafe)
     end
 
-    def train_array(input : Array(Array(Float32)), output : Array(Array(Float32)), opts = {:max_runs => 200, :desired_mse => 0.01_f32, :log_each => 1})
+    def train_array(input : Array(Array(Float32)), output : Array(Array(Float32)), opts = {:max_runs => 200, :desired_mse => 0.01_f64, :log_each => 1})
       raise "Input and Output arrays are not at the same size" if input.size != output.size
       runs = 0
       log_count = 0
