@@ -61,8 +61,9 @@ describe Crystal::Fann::Network do
     input = [[0.0_f32, 0.0_f32], [0.0_f32, 1.0_f32], [1.0_f32, 0.0_f32], [1.0_f32, 1.0_f32]]
     output = [[0.0_f32], [1.0_f32], [1.0_f32], [0.0_f32]]
     ann.train_algorithem(LibFANN::TrainEnum::TrainRprop)
-    ann.set_hidden_layer_activation_func(LibFANN::ActivationfuncEnum::SigmoidSymmetric)
-    ann.set_output_layer_activation_func(LibFANN::ActivationfuncEnum::SigmoidSymmetric)
+    ann.set_hidden_layer_activation_func(LibFANN::ActivationfuncEnum::Linear)
+    ann.set_output_layer_activation_func(LibFANN::ActivationfuncEnum::Linear)
+    ann.train_array(input, output, {:max_runs => 8000, :desired_mse => 0.001_f32, :log_each => 1000})
     result = ann.run([1.0_f32, 1.0_f32])
     ann.close
     (result < [0.1]).should be_true

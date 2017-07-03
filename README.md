@@ -27,6 +27,20 @@ result = ann.run([1.0_f32, 0.1_f32])
 ann.close
 ```
 
+```crystal
+# Work on array of test data (one at a time -- not batch)
+ann = Crystal::Fann::Network.new(2, [3], 1)
+input = [[0.0_f32, 0.0_f32], [0.0_f32, 1.0_f32], [1.0_f32, 0.0_f32], [1.0_f32, 1.0_f32]]
+output = [[0.0_f32], [1.0_f32], [1.0_f32], [0.0_f32]]
+ann.train_algorithem(LibFANN::TrainEnum::TrainRprop)
+ann.set_hidden_layer_activation_func(LibFANN::ActivationfuncEnum::Linear)
+ann.set_output_layer_activation_func(LibFANN::ActivationfuncEnum::Linear)
+ann.train_array(input, output, {:max_runs => 8000, :desired_mse => 0.001_f32, :log_each => 1000})
+result = ann.run([1.0_f32, 1.0_f32])
+ann.close
+(result < [0.1]).should be_true
+```
+
 ## Development
 All C lib docs can be found here -> http://libfann.github.io/fann/docs/files/fann-h.html  
 
@@ -35,6 +49,7 @@ All C lib docs can be found here -> http://libfann.github.io/fann/docs/files/fan
 - [ ] Add binding to the 'Parallel' binding to work on multi CPU at same time  
 - [ ] Clean uneeded bindings in the LibFANN binding  
 - [ ] Add specific Exceptions  
+- [ ] Add binding and checks for lib errors  
 
 I guess more stuff will be added once more people will use it.  
 
