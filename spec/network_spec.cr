@@ -42,6 +42,17 @@ describe Crystal::Fann::Network do
     output = [[0.5_f32], [0.3_f32], [0.2_f32]]
     ann.train_array(input, output, {:max_runs => 8000, :desired_mse => 0.001_f32, :log_each => 1000})
     result = ann.run([0.4_f32, 0.2_f32])
+    ann.close
     (result.flatten < [0.4] && result.flatten > [0.2]).should be_true
+  end
+
+  it "solves XOR problem" do
+    ann = Crystal::Fann::Network.new(2, [3], 1)
+    input = [[0.0_f32, 0.0_f32], [0.0_f32, 1.0_f32], [1.0_f32, 0.0_f32], [1.0_f32, 1.0_f32]]
+    output = [[0.0_f32], [1.0_f32], [1.0_f32], [0.0_f32]]
+    ann.train_array(input, output, {:max_runs => 8000, :desired_mse => 0.001_f32, :log_each => 1000})
+    result = ann.run([1.0_f32, 1.0_f32])
+    ann.close
+    (result < [0.1]).should be_true
   end
 end

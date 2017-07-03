@@ -23,6 +23,18 @@ module Crystal::Fann
       LibFANN.destroy(@nn)
     end
 
+    def train_algorithem(algo : LibFANN::TrainEnum)
+      LibFANN.set_training_algorithm(@ann, algo)
+    end
+
+    def set_hidden_layer_activation_func(func : LibFANN::ActivationfuncEnum)
+      LibFANN.set_activation_function_hidden(@ann, func)
+    end
+
+    def set_output_layer_activation_func(func : LibFANN::ActivationfuncEnum)
+      LibFANN.set_activation_function_output(@ann, func)
+    end
+
     def train_single(input : Array(Float32), output : Array(Float32))
       raise "Input size not equal to input neurons" if input.size != @input_size
       raise "Output size not equal to output neurons" if output.size != @output_size
