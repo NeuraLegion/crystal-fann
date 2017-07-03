@@ -70,6 +70,11 @@ module Crystal::Fann
       LibFANN.train_on_data(@nn, train_data, opts[:max_runs], opts[:log_each], opts[:desired_mse])
     end
 
+    def train_batch_cascade(train_data : Pointer(LibFANN::TrainData), opts = {:max_neurons => 500, :desired_mse => 0.01_f64, :log_each => 10})
+      # fun cascadetrain_on_data = fann_cascadetrain_on_data(ann : Fann*, data : TrainData*, max_neurons : LibC::UInt, neurons_between_reports : LibC::UInt, desired_error : LibC::Double)
+      LibFANN.cascadetrain_on_data(@nn, train_data, opts[:max_neurons], opts[:log_each], opts[:desired_mse])
+    end
+
     def run(input : Array(Float32))
       result = LibFANN.run(@nn, input.to_unsafe)
       Slice.new(result, @output_size).to_a
