@@ -12,8 +12,11 @@ module Crystal::Fann
       layers << output.to_u32
       @output_size = output
       @input_size = input
-      @nn = LibFANN.create_standard_array(layers.size, layers.to_unsafe) if opts[:net_type] == :standard
-      @nn = LibFANN.create_shortcut(layers.size) if opts[:net_type] == :cascade
+      if opts[:net_type] == :cascade
+        @nn = LibFANN.create_shortcut(layers.size)
+      else
+        @nn = LibFANN.create_standard_array(layers.size, layers.to_unsafe)
+      end
     end
 
     def mse
