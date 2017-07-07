@@ -2,7 +2,7 @@ module Crystal::Fann
   class Network
     property :nn
 
-    def initialize(input : Int32, hidden : Array(Int32), output : Int32)
+    def initialize(input : Int32, hidden : Array(Int32), output : Int32, opts = {:net_type => :standard})
       @logger = Logger.new(STDOUT)
       layers = Array(UInt32).new
       layers << input.to_u32
@@ -12,7 +12,8 @@ module Crystal::Fann
       layers << output.to_u32
       @output_size = output
       @input_size = input
-      @nn = LibFANN.create_standard_array(layers.size, layers.to_unsafe)
+      @nn = LibFANN.create_standard_array(layers.size, layers.to_unsafe) if opts[:net_type] == :standard
+      @nn = LibFANN.create_shortcut(layers.size) if opts[:net_type] == :cascade
     end
 
     def mse
