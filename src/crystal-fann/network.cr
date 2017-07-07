@@ -13,7 +13,7 @@ module Crystal::Fann
       @output_size = output
       @input_size = input
       if opts[:net_type] == :cascade
-        @nn = LibFANN.create_shortcut(layers.size)
+        @nn = LibFANN.create_shortcut_array(layers.size, layers.to_unsafe)
       else
         @nn = LibFANN.create_standard_array(layers.size, layers.to_unsafe)
       end
