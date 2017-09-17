@@ -4,6 +4,7 @@ install:
   - cd fann
   - cmake .
   - sudo make install
+  - cd ..
 script: crystal spec
 notifications:
   email:
