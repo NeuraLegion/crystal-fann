@@ -1,5 +1,5 @@
 language: crystal
-before_script:
+install:
   - git clone https://github.com/libfann/fann.git
   - cd fann
   - cmake .
