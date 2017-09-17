@@ -1,5 +1,7 @@
 # crystal-fann
 
+[![Build Status](https://travis-ci.org/NeuraLegion/crystal-fann.svg?branch=master)](https://travis-ci.org/NeuraLegion/crystal-fann)
+
 Crystal bindings for the FANN C lib
 
 ## Installation
