@@ -38,7 +38,7 @@ describe Crystal::Fann::Network do
     end
     result = ann.run([1.0, 0.1])
     ann.close
-    (result < [0.5] && result > [0.48]).should be_true
+    (result < [0.5] && result > [0.45]).should be_true
   end
 
   it "train on batch" do
