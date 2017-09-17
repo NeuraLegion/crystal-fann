@@ -39,7 +39,7 @@ module Crystal::Fann
         LibFANN.cascade_train_on_data(@nn, train_data, opts[:max_neurons], opts[:log_each], opts[:desired_mse])
       end
 
-      def run(input : Array(Float32))
+      def run(input : Array(Float64))
         result = LibFANN.run(@nn, input.to_unsafe)
         Slice.new(result, @output_size).to_a
       end

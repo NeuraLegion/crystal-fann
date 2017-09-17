@@ -42,7 +42,7 @@ module Crystal::Fann
         LibFANN.randomize_weights(@nn, min, max)
       end
 
-      def train_single(input : Array(Float32), output : Array(Float32))
+      def train_single(input : Array(Float64), output : Array(Float64))
         raise "Input size not equal to input neurons" if input.size != @input_size
         raise "Output size not equal to output neurons" if output.size != @output_size
         LibFANN.train(@nn, input.to_unsafe, output.to_unsafe)
@@ -75,7 +75,7 @@ module Crystal::Fann
         end
       end
 
-      def run(input : Array(Float32))
+      def run(input : Array(Float64))
         result = LibFANN.run(@nn, input.to_unsafe)
         Slice.new(result, @output_size).to_a
       end

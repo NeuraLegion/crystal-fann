@@ -1,4 +1,5 @@
-@[Link("fann")]
+#@[Include("doublefann")]
+@[Link("doublefann")]
 lib LibFANN
   ERRSTR_MAX = 128
 
@@ -94,7 +95,7 @@ lib LibFANN
     output : Type**
   end
 
-  alias Type = LibC::Float
+  alias Type = LibC::Double
 
   struct Neuron
     first_con : LibC::UInt

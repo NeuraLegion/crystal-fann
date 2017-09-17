@@ -2,16 +2,16 @@ module Crystal::Fann
   class TrainData
     property :data_struct, :p_input_array, :p_output_array
 
-    def initialize(input_array : Array(Array(Float32)), output_array : Array(Array(Float32)))
+    def initialize(input_array : Array(Array(Float64)), output_array : Array(Array(Float64)))
       # Save so GC wont collect
       @input_array = input_array
       @output_array = output_array
       # Map as an Array of Pointer(Float32)
-      @n_i = (@input_array.map &.to_unsafe).as Array(Pointer(Float32))
-      @n_o = (@output_array.map &.to_unsafe).as Array(Pointer(Float32))
+      @n_i = (@input_array.map &.to_unsafe).as Array(Pointer(Float64))
+      @n_o = (@output_array.map &.to_unsafe).as Array(Pointer(Float64))
       # Get the Pointer of Pointer(Float32)
-      @p_input_array = (@n_i.to_unsafe).as Pointer(Pointer(Float32))
-      @p_output_array = (@n_o.to_unsafe).as Pointer(Pointer(Float32))
+      @p_input_array = (@n_i.to_unsafe).as Pointer(Pointer(Float64))
+      @p_output_array = (@n_o.to_unsafe).as Pointer(Pointer(Float64))
       # Build struct
       set_train_struct
     end
