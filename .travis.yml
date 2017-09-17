@@ -1,2 +1,7 @@
 language: crystal
-script: git clone https://github.com/libfann/fann.git && cd fann && cmake . && sudo make install && crystal spec
+before_script:
+	- git clone https://github.com/libfann/fann.git
+	- cd fann
+	- cmake .
+	- sudo make install
+script: crystal spec
