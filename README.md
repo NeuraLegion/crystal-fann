@@ -23,7 +23,7 @@ ann = Crystal::Fann::Network::Standard.new(2, [2], 1)
   ann.train_single([1.0, 0.1], [0.5])
 end
 result = ann.run([1.0, 0.1])
-# Remmber to close the network when done to free allocated C mem
+# Remember to close the network when done to free allocated C memory
 ann.close
 ```
 
@@ -69,7 +69,7 @@ All C lib docs can be found here -> http://libfann.github.io/fann/docs/files/fan
 - [x] Add TrainData class  
 - [x] Add network call method to train on train data  
 - [x] Add binding to the 'Parallel' binding to work on multi CPU at same time  
-- [ ] Clean uneeded bindings in the LibFANN binding  
+- [ ] Clean unneeded bindings in the LibFANN binding  
 - [ ] Add specific Exceptions  
 - [ ] Add binding and checks for lib errors  
 
