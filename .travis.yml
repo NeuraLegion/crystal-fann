@@ -3,6 +3,7 @@ install:
   - git clone https://github.com/libfann/fann.git
   - cd fann
   - cmake .
+  - export CMAKE_INSTALL_PREFIX=/usr
   - sudo make install
   - cd ..
 script: crystal spec
