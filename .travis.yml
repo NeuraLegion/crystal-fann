@@ -6,7 +6,7 @@ install:
   - export CMAKE_INSTALL_PREFIX=/usr
   - sudo make install
   - cd ..
-script: crystal spec
+script: LD_LIBRARY_PATH=/lib:/usr/lib:/usr/local/lib crystal spec
 notifications:
   email:
     recipients:
