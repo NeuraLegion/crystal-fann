@@ -75,20 +75,20 @@ describe Crystal::Fann::Network do
     (result < [0.1]).should be_true
   end
 
-  it "train on multiple cores" do
-    ann = Crystal::Fann::Network::Standard.new(2, [3], 1)
-    input = [[0.0_f32, 0.0_f32], [0.0_f32, 1.0_f32], [1.0_f32, 0.0_f32], [1.0_f32, 1.0_f32]]
-    output = [[0.0_f32], [1.0_f32], [1.0_f32], [0.0_f32]]
-    train_data = Crystal::Fann::TrainData.new(input, output)
-    data = train_data.train_data
-    ann.train_algorithem(LibFANN::TrainEnum::TrainRprop)
-    # ann.set_hidden_layer_activation_func(LibFANN::ActivationfuncEnum::Linear)
-    # ann.set_output_layer_activation_func(LibFANN::ActivationfuncEnum::Linear)
-    if data
-      ann.train_batch_multicore(data, 4, {:max_runs => 8000, :desired_mse => 0.001_f64, :log_each => 1000})
-    end
-    result = ann.run([1.0_f32, 1.0_f32])
-    ann.close
-    (result < [0.1]).should be_true
-  end
+  #it "train on multiple cores" do
+  #  ann = Crystal::Fann::Network::Standard.new(2, [3], 1)
+  #  input = [[0.0_f32, 0.0_f32], [0.0_f32, 1.0_f32], [1.0_f32, 0.0_f32], [1.0_f32, 1.0_f32]]
+  #  output = [[0.0_f32], [1.0_f32], [1.0_f32], [0.0_f32]]
+  #  train_data = Crystal::Fann::TrainData.new(input, output)
+  #  data = train_data.train_data
+  #  ann.train_algorithem(LibFANN::TrainEnum::TrainRprop)
+  #  # ann.set_hidden_layer_activation_func(LibFANN::ActivationfuncEnum::Linear)
+  #  # ann.set_output_layer_activation_func(LibFANN::ActivationfuncEnum::Linear)
+  #  if data
+  #    ann.train_batch_multicore(data, 4, {:max_runs => 8000, :desired_mse => 0.001_f64, :log_each => 1000})
+  #  end
+  #  result = ann.run([1.0_f32, 1.0_f32])
+  #  ann.close
+  #  (result < [0.1]).should be_true
+  #end
 end
