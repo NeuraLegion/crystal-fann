@@ -5,3 +5,9 @@ install:
   - cmake .
   - sudo make install
 script: crystal spec
+notifications:
+  email:
+    recipients:
+      - bar.hofesh@gmail.com
+    on_success: always # default: change
+    on_failure: always # default: always
