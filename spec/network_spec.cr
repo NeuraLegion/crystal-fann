@@ -18,7 +18,7 @@ describe Crystal::Fann::Network do
 
   it "trains on single data" do
     ann = Crystal::Fann::Network::Standard.new(2, [2, 2], 1)
-    500.times do
+    3000.times do
       ann.train_single([1.0, 0.0], [0.5])
     end
     (ann.mse < 0.01).should be_true
@@ -33,7 +33,7 @@ describe Crystal::Fann::Network do
 
   it "trains and evaluate single data" do
     ann = Crystal::Fann::Network::Standard.new(2, [2], 1)
-    500.times do
+    3000.times do
       ann.train_single([1.0, 0.1], [0.5])
     end
     result = ann.run([1.0, 0.1])
