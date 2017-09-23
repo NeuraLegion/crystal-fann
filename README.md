@@ -1,5 +1,7 @@
 # crystal-fann
 
+[![Join the chat at https://gitter.im/crystal-fann/Lobby](https://badges.gitter.im/crystal-fann/Lobby.svg)](https://gitter.im/crystal-fann/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/NeuraLegion/crystal-fann.svg?branch=master)](https://travis-ci.org/NeuraLegion/crystal-fann)
 
 Crystal bindings for the FANN C lib
