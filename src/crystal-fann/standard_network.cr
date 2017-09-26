@@ -1,4 +1,4 @@
-module Crystal::Fann
+module Fann
   module Network
     class Standard
       property :nn

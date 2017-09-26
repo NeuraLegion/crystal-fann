@@ -1,23 +1,23 @@
 require "./spec_helper"
 
-describe Crystal::Fann::Network do
+describe Fann::Network do
   it "initializes standard network" do
-    ann = Crystal::Fann::Network::Standard.new(2, [2, 2], 2)
+    ann = Fann::Network::Standard.new(2, [2, 2], 2)
     ann.nn.is_a?(LibFANN::Fann*).should be_true
   end
 
   it "initializes cascade network" do
-    ann = Crystal::Fann::Network::Cascade.new(2, 2)
+    ann = Fann::Network::Cascade.new(2, 2)
     ann.nn.is_a?(LibFANN::Fann*).should be_true
   end
 
   it "free memory" do
-    ann = Crystal::Fann::Network::Standard.new(2, [2, 2], 2)
+    ann = Fann::Network::Standard.new(2, [2, 2], 2)
     ann.close
   end
 
   it "trains on single data" do
-    ann = Crystal::Fann::Network::Standard.new(2, [2, 2], 1)
+    ann = Fann::Network::Standard.new(2, [2, 2], 1)
     3000.times do
       ann.train_single([1.0, 0.0], [0.5])
     end
@@ -26,13 +26,13 @@ describe Crystal::Fann::Network do
   end
 
   it "Shows MSE" do
-    ann = Crystal::Fann::Network::Standard.new(2, [2, 2], 2)
+    ann = Fann::Network::Standard.new(2, [2, 2], 2)
     ann.mse.is_a?(LibC::Double).should be_true
     ann.close
   end
 
   it "trains and evaluate single data" do
-    ann = Crystal::Fann::Network::Standard.new(2, [2], 1)
+    ann = Fann::Network::Standard.new(2, [2], 1)
     3000.times do
       ann.train_single([1.0, 0.1], [0.5])
     end
@@ -42,10 +42,10 @@ describe Crystal::Fann::Network do
   end
 
   it "train on batch" do
-    ann = Crystal::Fann::Network::Standard.new(2, [3], 1)
+    ann = Fann::Network::Standard.new(2, [3], 1)
     input = [[0.0, 0.0], [0.0, 1.0], [1.0, 0.0], [1.0, 1.0]]
     output = [[0.0], [1.0], [1.0], [0.0]]
-    train_data = Crystal::Fann::TrainData.new(input, output)
+    train_data = Fann::TrainData.new(input, output)
     data = train_data.train_data
     ann.train_algorithem(LibFANN::TrainEnum::TrainRprop)
     # ann.set_hidden_layer_activation_func(LibFANN::ActivationfuncEnum::Linear)
@@ -59,10 +59,10 @@ describe Crystal::Fann::Network do
   end
 
   it "train on cascade" do
-    ann = Crystal::Fann::Network::Cascade.new(2, 1)
+    ann = Fann::Network::Cascade.new(2, 1)
     input = [[0.0, 0.0], [0.0, 1.0], [1.0, 0.0], [1.0, 1.0]]
     output = [[0.0], [1.0], [1.0], [0.0]]
-    train_data = Crystal::Fann::TrainData.new(input, output)
+    train_data = Fann::TrainData.new(input, output)
     data = train_data.train_data
     ann.train_algorithem(LibFANN::TrainEnum::TrainRprop)
     ann.set_hidden_layer_activation_func(LibFANN::ActivationfuncEnum::Linear)
@@ -76,10 +76,10 @@ describe Crystal::Fann::Network do
   end
 
   #it "train on multiple cores" do
-  #  ann = Crystal::Fann::Network::Standard.new(2, [3], 1)
+  #  ann = Fann::Network::Standard.new(2, [3], 1)
   #  input = [[0.0_f32, 0.0_f32], [0.0_f32, 1.0_f32], [1.0_f32, 0.0_f32], [1.0_f32, 1.0_f32]]
   #  output = [[0.0_f32], [1.0_f32], [1.0_f32], [0.0_f32]]
-  #  train_data = Crystal::Fann::TrainData.new(input, output)
+  #  train_data = Fann::TrainData.new(input, output)
   #  data = train_data.train_data
   #  ann.train_algorithem(LibFANN::TrainEnum::TrainRprop)
   #  # ann.set_hidden_layer_activation_func(LibFANN::ActivationfuncEnum::Linear)
