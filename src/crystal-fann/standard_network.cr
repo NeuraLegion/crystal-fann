@@ -79,6 +79,10 @@ module Fann
         result = LibFANN.run(@nn, input.to_unsafe)
         Slice.new(result, @output_size).to_a
       end
+
+      def save(path : String) : Int32
+        LibFANN.save(@nn, path)
+      end
     end
   end
 end

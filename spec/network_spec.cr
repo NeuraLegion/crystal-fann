@@ -76,4 +76,22 @@ describe Fann::Network do
     ann.close
     (result < [0.1]).should be_true
   end
+
+  context "#save" do
+    it "saves standard networks" do
+      tempfile = Tempfile.new("foo")
+      File.size(tempfile.path).should eq 0
+      ann = Fann::Network::Standard.new(2, [2], 1)
+      ann.save(tempfile.path)
+      (File.size(tempfile.path) > 0).should be_true
+    end
+
+    it "saves cascade networks" do
+      tempfile = Tempfile.new("bar")
+      File.size(tempfile.path).should eq 0
+      ann = Fann::Network::Cascade.new(2, 1)
+      ann.save(tempfile.path)
+      (File.size(tempfile.path) > 0).should be_true
+    end
+  end
 end
