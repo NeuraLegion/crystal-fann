@@ -1,14 +1,18 @@
-#@[Include("doublefann")]
+# @[Include("doublefann")]
 @[Link("doublefann")]
 lib LibFANN
+  # Constants
   ERRSTR_MAX = 128
 
-  struct Error
-    errno_f : ErrnoEnum
-    error_log : File*
-    errstr : LibC::Char*
-  end
+  # Globals
+  $default_error_log : File*
+  $train_names = TRAIN_NAMES : LibC::Char*[5]
+  $activationsfunc_names = ACTIVATIONFUNC_NAMES : LibC::Char*[21]
+  $errorfunc_names = ERRORFUNC_NAMES : LibC::Char*[2]
+  $stopfunc_names = STOPFUNC_NAMES : LibC::Char*[2]
+  $nettype_names = NETTYPE_NAMES : LibC::Char*[2]
 
+  # Enums
   enum ErrnoEnum
     ENoError                  =  0
     ECantOpenConfigR          =  1
@@ -32,6 +36,61 @@ lib LibFANN
     EInputNoMatch             = 19
     EOutputNoMatch            = 20
     EWrongParametersForCreate = 21
+  end
+
+  enum ActivationfuncEnum
+    Linear                   =  0
+    Threshold                =  1
+    ThresholdSymmetric       =  2
+    Sigmoid                  =  3
+    SigmoidStepwise          =  4
+    SigmoidSymmetric         =  5
+    SigmoidSymmetricStepwise =  6
+    Gaussian                 =  7
+    GaussianSymmetric        =  8
+    GaussianStepwise         =  9
+    Elliot                   = 10
+    ElliotSymmetric          = 11
+    LinearPiece              = 12
+    LinearPieceSymmetric     = 13
+    SinSymmetric             = 14
+    CosSymmetric             = 15
+    Sin                      = 16
+    Cos                      = 17
+    SigmoidSymmetricLecun    = 18
+    Relu                     = 19
+    LeakyRelu                = 20
+  end
+
+  enum NettypeEnum
+    NettypeLayer    = 0
+    NettypeShortcut = 1
+  end
+
+  enum TrainEnum
+    TrainIncremental = 0
+    TrainBatch       = 1
+    TrainRprop       = 2
+    TrainQuickprop   = 3
+    TrainSarprop     = 4
+  end
+
+  enum ErrorfuncEnum
+    ErrorfuncLinear = 0
+    ErrorfuncTanh   = 1
+  end
+
+  enum StopfuncEnum
+    StopfuncMse = 0
+    StopfuncBit = 1
+  end
+
+  # Structs
+
+  struct Error
+    errno_f : ErrnoEnum
+    error_log : File*
+    errstr : LibC::Char*
   end
 
   struct X_IoFile
@@ -66,23 +125,11 @@ lib LibFANN
     _unused2 : LibC::Char
   end
 
-  type File = X_IoFile
-
   struct X_IoMarker
     _next : X_IoMarker*
     _sbuf : X_IoFile*
     _pos : LibC::Int
   end
-
-  alias X__OffT = LibC::Long
-  alias X_IoLockT = Void
-  alias X__Off64T = LibC::Long
-  fun set_error_log = fann_set_error_log(errdat : Error*, log_file : File*)
-  fun get_errno = fann_get_errno(errdat : Error*) : ErrnoEnum
-  fun reset_errno = fann_reset_errno(errdat : Error*)
-  fun reset_errstr = fann_reset_errstr(errdat : Error*)
-  fun get_errstr = fann_get_errstr(errdat : Error*) : LibC::Char*
-  fun print_error = fann_print_error(errdat : Error*)
 
   struct TrainData
     errno_f : ErrnoEnum
@@ -95,8 +142,6 @@ lib LibFANN
     output : Type**
   end
 
-  alias Type = LibC::Double
-
   struct Neuron
     first_con : LibC::UInt
     last_con : LibC::UInt
@@ -104,30 +149,6 @@ lib LibFANN
     value : Type
     activation_steepness : Type
     activation_function : ActivationfuncEnum
-  end
-
-  enum ActivationfuncEnum
-    Linear                   =  0
-    Threshold                =  1
-    ThresholdSymmetric       =  2
-    Sigmoid                  =  3
-    SigmoidStepwise          =  4
-    SigmoidSymmetric         =  5
-    SigmoidSymmetricStepwise =  6
-    Gaussian                 =  7
-    GaussianSymmetric        =  8
-    GaussianStepwise         =  9
-    Elliot                   = 10
-    ElliotSymmetric          = 11
-    LinearPiece              = 12
-    LinearPieceSymmetric     = 13
-    SinSymmetric             = 14
-    CosSymmetric             = 15
-    Sin                      = 16
-    Cos                      = 17
-    SigmoidSymmetricLecun    = 18
-    Relu                     = 19
-    LeakyRelu                = 20
   end
 
   struct Layer
@@ -140,8 +161,6 @@ lib LibFANN
     to_neuron : LibC::UInt
     weight : Type
   end
-
-  fun allocate_structure = fann_allocate_structure(num_layers : LibC::UInt) : Fann*
 
   struct Fann
     errno_f : ErrnoEnum
@@ -216,26 +235,24 @@ lib LibFANN
     scale_factor_out : LibC::Double*
   end
 
-  enum NettypeEnum
-    NettypeLayer    = 0
-    NettypeShortcut = 1
-  end
-  enum TrainEnum
-    TrainIncremental = 0
-    TrainBatch       = 1
-    TrainRprop       = 2
-    TrainQuickprop   = 3
-    TrainSarprop     = 4
-  end
-  enum ErrorfuncEnum
-    ErrorfuncLinear = 0
-    ErrorfuncTanh   = 1
-  end
-  enum StopfuncEnum
-    StopfuncMse = 0
-    StopfuncBit = 1
-  end
+  # Types
+  type File = X_IoFile
+
+  # Aliases
+  alias Type = LibC::Double
+  alias X__OffT = LibC::Long
+  alias X_IoLockT = Void
+  alias X__Off64T = LibC::Long
   alias CallbackType = (Fann*, TrainData*, LibC::UInt, LibC::UInt, LibC::Double, LibC::UInt -> LibC::Int)
+
+  # Functions
+  fun set_error_log = fann_set_error_log(errdat : Error*, log_file : File*)
+  fun get_errno = fann_get_errno(errdat : Error*) : ErrnoEnum
+  fun reset_errno = fann_reset_errno(errdat : Error*)
+  fun reset_errstr = fann_reset_errstr(errdat : Error*)
+  fun get_errstr = fann_get_errstr(errdat : Error*) : LibC::Char*
+  fun print_error = fann_print_error(errdat : Error*)
+  fun allocate_structure = fann_allocate_structure(num_layers : LibC::UInt) : Fann*
   fun allocate_neurons = fann_allocate_neurons(ann : Fann*)
   fun allocate_connections = fann_allocate_connections(ann : Fann*)
   fun save_internal = fann_save_internal(ann : Fann*, configuration_file : LibC::Char*, save_as_fixed : LibC::UInt) : LibC::Int
@@ -438,10 +455,4 @@ lib LibFANN
   fun train_epoch_sarprop_parallel = fann_train_epoch_sarprop_parallel(ann : Fann*, data : TrainData*, threadnumb : LibC::UInt) : LibC::Double
   fun train_epoch_incremental_mod = fann_train_epoch_incremental_mod(ann : Fann*, data : TrainData*) : LibC::Double
   fun test_data_parallel = fann_test_data_parallel(ann : Fann*, data : TrainData*, threadnumb : LibC::UInt) : LibC::Double
-  $default_error_log : File*
-  $train_names = TRAIN_NAMES : LibC::Char*[5]
-  $activationsfunc_names = ACTIVATIONFUNC_NAMES : LibC::Char*[21]
-  $errorfunc_names = ERRORFUNC_NAMES : LibC::Char*[2]
-  $stopfunc_names = STOPFUNC_NAMES : LibC::Char*[2]
-  $nettype_names = NETTYPE_NAMES : LibC::Char*[2]
 end
