@@ -22,7 +22,7 @@ Look at the spec for most functions
 
 ```crystal
 require "crystal-fann"
-ann = Crystal::Fann::Network::Standard.new(2, [2], 1)
+ann = Fann::Network::Standard.new(2, [2], 1)
 500.times do
   ann.train_single([1.0, 0.1], [0.5])
 end
@@ -33,10 +33,10 @@ ann.close
 
 ```crystal
 # Work on array of test data (batch)
-ann = Crystal::Fann::Network::Standard.new(2, [3], 1)
+ann = Fann::Network::Standard.new(2, [3], 1)
 input = [[0.0, 0.0], [0.0, 1.0], [1.0, 0.0], [1.0, 1.0]]
 output = [[0.0], [1.0], [1.0], [0.0]]
-train_data = Crystal::Fann::TrainData.new(input, output)
+train_data = Fann::TrainData.new(input, output)
 data = train_data.train_data
 ann.train_algorithem(LibFANN::TrainEnum::TrainRprop)
 ann.set_hidden_layer_activation_func(LibFANN::ActivationfuncEnum::Linear)
@@ -51,10 +51,10 @@ ann.close
 
 ```crystal
 # Work on array of test data using the Cascade2 algorithm (no hidden layers, net will build it alone)
-ann = Crystal::Fann::Network::Cascade.new(2, 1)
+ann = Fann::Network::Cascade.new(2, 1)
 input = [[0.0, 0.0], [0.0, 1.0], [1.0, 0.0], [1.0, 1.0]]
 output = [[0.0], [1.0], [1.0], [0.0]]
-train_data = Crystal::Fann::TrainData.new(input, output)
+train_data = Fann::TrainData.new(input, output)
 data = train_data.train_data
 ann.train_algorithem(LibFANN::TrainEnum::TrainRprop)
 ann.set_hidden_layer_activation_func(LibFANN::ActivationfuncEnum::Linear)
