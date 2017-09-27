@@ -37,7 +37,7 @@ module Fann
         LibFANN.set_activation_function_output(@nn, func)
       end
 
-      def randomzie_weights(min : Float32, max : Float32)
+      def randomzie_weights(min : Float64, max : Float64)
         # randomize_weights = fann_randomize_weights(ann : Fann*, min_weight : Type, max_weight : Type)
         LibFANN.randomize_weights(@nn, min, max)
       end
@@ -50,7 +50,7 @@ module Fann
 
       def train_batch(train_data : Pointer(LibFANN::TrainData), opts = {:max_runs => 200, :desired_mse => 0.01_f64, :log_each => 1})
         # train_on_data = fann_train_on_data(ann : Fann*, data : TrainData*, max_epochs : LibC::UInt, epochs_between_reports : LibC::UInt, desired_error : LibC::Double)
-        LibFANN.train_on_data(@nn, train_data, opts[:max_runs], opts[:log_each], opts[:desired_mse])
+        LibFANN.train_on_data(@nn, train_data, opts[:max_runs], opts[:log_each], opts[:desired_mse].to_f32)
       end
 
       def train_batch_multicore(train_data : Pointer(LibFANN::TrainData), threads : Int32, opts = {:max_runs => 200, :desired_mse => 0.01_f64, :log_each => 1})

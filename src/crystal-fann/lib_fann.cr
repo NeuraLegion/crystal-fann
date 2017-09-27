@@ -292,8 +292,8 @@ lib LibFANN
   fun get_mse = fann_get_MSE(ann : Fann*) : LibC::Double
   fun get_bit_fail = fann_get_bit_fail(ann : Fann*) : LibC::UInt
   fun reset_mse = fann_reset_MSE(ann : Fann*)
-  fun train_on_data = fann_train_on_data(ann : Fann*, data : TrainData*, max_epochs : LibC::UInt, epochs_between_reports : LibC::UInt, desired_error : LibC::Double)
-  fun train_on_file = fann_train_on_file(ann : Fann*, filename : LibC::Char*, max_epochs : LibC::UInt, epochs_between_reports : LibC::UInt, desired_error : LibC::Double)
+  fun train_on_data = fann_train_on_data(ann : Fann*, data : TrainData*, max_epochs : LibC::UInt, epochs_between_reports : LibC::UInt, desired_error : LibC::Float)
+  fun train_on_file = fann_train_on_file(ann : Fann*, filename : LibC::Char*, max_epochs : LibC::UInt, epochs_between_reports : LibC::UInt, desired_error : LibC::Float)
   fun train_epoch = fann_train_epoch(ann : Fann*, data : TrainData*) : LibC::Double
   fun train_epoch_lw = fann_train_epoch_lw(ann : Fann*, data : TrainData*, label_weight : Type*) : LibC::Double
   fun train_epoch_irpropm_gradient = fann_train_epoch_irpropm_gradient(ann : Fann*, data : TrainData*, error_function : (Type*, Type*, LibC::Int, Void* -> Type), x3 : Void*) : LibC::Double
@@ -381,8 +381,8 @@ lib LibFANN
   fun set_sarprop_step_error_shift = fann_set_sarprop_step_error_shift(ann : Fann*, sarprop_step_error_shift : LibC::Double)
   fun get_sarprop_temperature = fann_get_sarprop_temperature(ann : Fann*) : LibC::Double
   fun set_sarprop_temperature = fann_set_sarprop_temperature(ann : Fann*, sarprop_temperature : LibC::Double)
-  fun cascade_train_on_data = fann_cascadetrain_on_data(ann : Fann*, data : TrainData*, max_neurons : LibC::UInt, neurons_between_reports : LibC::UInt, desired_error : LibC::Double)
-  fun cascade_train_on_file = fann_cascadetrain_on_file(ann : Fann*, filename : LibC::Char*, max_neurons : LibC::UInt, neurons_between_reports : LibC::UInt, desired_error : LibC::Double)
+  fun cascade_train_on_data = fann_cascadetrain_on_data(ann : Fann*, data : TrainData*, max_neurons : LibC::UInt, neurons_between_reports : LibC::UInt, desired_error : LibC::Float)
+  fun cascade_train_on_file = fann_cascadetrain_on_file(ann : Fann*, filename : LibC::Char*, max_neurons : LibC::UInt, neurons_between_reports : LibC::UInt, desired_error : LibC::Float)
   fun get_cascade_output_change_fraction = fann_get_cascade_output_change_fraction(ann : Fann*) : LibC::Double
   fun set_cascade_output_change_fraction = fann_set_cascade_output_change_fraction(ann : Fann*, cascade_output_change_fraction : LibC::Double)
   fun get_cascade_output_stagnation_epochs = fann_get_cascade_output_stagnation_epochs(ann : Fann*) : LibC::UInt

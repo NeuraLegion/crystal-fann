@@ -29,14 +29,14 @@ module Fann
         LibFANN.set_activation_function_hidden(@nn, func)
       end
 
-      def randomzie_weights(min : Float32, max : Float32)
+      def randomzie_weights(min : Float64, max : Float64)
         # randomize_weights = fann_randomize_weights(ann : Fann*, min_weight : Type, max_weight : Type)
         LibFANN.randomize_weights(@nn, min, max)
       end
 
       def train_batch(train_data : Pointer(LibFANN::TrainData), opts = {:max_neurons => 500, :desired_mse => 0.01_f64, :log_each => 10})
         # fun cascadetrain_on_data = fann_cascadetrain_on_data(ann : Fann*, data : TrainData*, max_neurons : LibC::UInt, neurons_between_reports : LibC::UInt, desired_error : LibC::Double)
-        LibFANN.cascade_train_on_data(@nn, train_data, opts[:max_neurons], opts[:log_each], opts[:desired_mse])
+        LibFANN.cascade_train_on_data(@nn, train_data, opts[:max_neurons], opts[:log_each], opts[:desired_mse].to_f32)
       end
 
       def run(input : Array(Float64))

@@ -18,6 +18,7 @@ describe Fann::Network do
 
   it "trains on single data" do
     ann = Fann::Network::Standard.new(2, [2, 2], 1)
+    ann.randomzie_weights(0.0, 1.0)
     3000.times do
       ann.train_single([1.0, 0.0], [0.5])
     end
@@ -33,10 +34,11 @@ describe Fann::Network do
 
   it "trains and evaluate single data" do
     ann = Fann::Network::Standard.new(2, [2], 1)
+    ann.randomzie_weights(0.0, 1.0)
     3000.times do
-      ann.train_single([1.0, 0.1], [0.5])
+      ann.train_single([1.0, 0.0], [0.5])
     end
-    result = ann.run([1.0, 0.1])
+    result = ann.run([1.0, 0.0])
     ann.close
     (result < [0.55] && result > [0.45]).should be_true
   end
@@ -47,9 +49,10 @@ describe Fann::Network do
     output = [[0.0], [1.0], [1.0], [0.0]]
     train_data = Fann::TrainData.new(input, output)
     data = train_data.train_data
-    ann.train_algorithem(LibFANN::TrainEnum::TrainRprop)
-    ann.set_hidden_layer_activation_func(LibFANN::ActivationfuncEnum::LeakyRelu)
-    ann.set_output_layer_activation_func(LibFANN::ActivationfuncEnum::LeakyRelu)
+    # ann.train_algorithem(LibFANN::TrainEnum::TrainSarprop)
+    ann.randomzie_weights(0.0, 1.0)
+    # ann.set_hidden_layer_activation_func(LibFANN::ActivationfuncEnum::LeakyRelu)
+    # ann.set_output_layer_activation_func(LibFANN::ActivationfuncEnum::LeakyRelu)
     if data
       ann.train_batch(data, {:max_runs => 8000, :desired_mse => 0.001, :log_each => 1000})
     end
@@ -65,8 +68,9 @@ describe Fann::Network do
     train_data = Fann::TrainData.new(input, output)
     data = train_data.train_data
     ann.train_algorithem(LibFANN::TrainEnum::TrainRprop)
+    ann.randomzie_weights(0.0, 1.0)
     if data
-      ann.train_batch(data, {:max_neurons => 500, :desired_mse => 0.1, :log_each => 10})
+      ann.train_batch(data, {:max_neurons => 500, :desired_mse => 0.001, :log_each => 10})
     end
     result = ann.run([1.0, 1.0])
     ann.close
