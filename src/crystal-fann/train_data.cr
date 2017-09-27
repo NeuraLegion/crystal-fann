@@ -1,4 +1,4 @@
-module Crystal::Fann
+module Fann
   class TrainData
     property :data_struct, :p_input_array, :p_output_array
 
