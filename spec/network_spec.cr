@@ -94,4 +94,28 @@ describe Fann::Network do
       (File.size(tempfile.path) > 0).should be_true
     end
   end
+
+  context ".load" do
+    it "loads standard networks" do
+      input = 2
+      output = 1
+      tempfile = Tempfile.new("standard")
+      original = Fann::Network::Standard.new(input, [2], output)
+      original.save(tempfile.path)
+      loaded = Fann::Network::Standard.load(tempfile.path)
+      loaded.input_size.should eq input
+      loaded.output_size.should eq output
+    end
+
+    it "loads cascade networks" do
+      input = 2
+      output = 1
+      tempfile = Tempfile.new("cascade")
+      original = Fann::Network::Cascade.new(input, output)
+      original.save(tempfile.path)
+      loaded = Fann::Network::Cascade.load(tempfile.path)
+      loaded.input_size.should eq input
+      loaded.output_size.should eq output
+    end
+  end
 end

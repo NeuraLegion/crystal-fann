@@ -2,11 +2,18 @@ module Fann
   module Network
     class Cascade
       property :nn
+      getter :input_size
+      getter :output_size
 
       def initialize(input : Int32, output : Int32)
         @output_size = output
         @input_size = input
         @nn = LibFANN.create_shortcut(2, input, output)
+      end
+
+      def initialize(@nn)
+        @input_size = LibFANN.get_num_input(@nn)
+        @output_size = LibFANN.get_num_output(@nn)
       end
 
       def mse
@@ -46,6 +53,11 @@ module Fann
 
       def save(path : String) : Int32
         LibFANN.save(@nn, path)
+      end
+
+      def self.load(path : String)
+        nn = LibFANN.create_from_file(path)
+        new(nn)
       end
     end
   end
