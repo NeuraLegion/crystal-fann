@@ -48,8 +48,8 @@ describe Fann::Network do
     train_data = Fann::TrainData.new(input, output)
     data = train_data.train_data
     ann.train_algorithem(LibFANN::TrainEnum::TrainRprop)
-    # ann.set_hidden_layer_activation_func(LibFANN::ActivationfuncEnum::Linear)
-    # ann.set_output_layer_activation_func(LibFANN::ActivationfuncEnum::Linear)
+    ann.set_hidden_layer_activation_func(LibFANN::ActivationfuncEnum::LeakyRelu)
+    ann.set_output_layer_activation_func(LibFANN::ActivationfuncEnum::LeakyRelu)
     if data
       ann.train_batch(data, {:max_runs => 8000, :desired_mse => 0.001, :log_each => 1000})
     end
@@ -65,8 +65,6 @@ describe Fann::Network do
     train_data = Fann::TrainData.new(input, output)
     data = train_data.train_data
     ann.train_algorithem(LibFANN::TrainEnum::TrainRprop)
-    # ann.set_hidden_layer_activation_func(LibFANN::ActivationfuncEnum::Linear)
-    # ann.set_output_layer_activation_func(LibFANN::ActivationfuncEnum::Linear)
     if data
       ann.train_batch(data, {:max_neurons => 500, :desired_mse => 0.1, :log_each => 10})
     end

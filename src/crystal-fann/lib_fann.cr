@@ -86,7 +86,6 @@ lib LibFANN
   end
 
   # Structs
-
   struct Error
     errno_f : ErrnoEnum
     error_log : File*
