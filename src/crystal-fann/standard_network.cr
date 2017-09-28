@@ -2,6 +2,8 @@ module Fann
   module Network
     class Standard
       property :nn
+      getter :input_size
+      getter :output_size
 
       def initialize(input : Int32, hidden : Array(Int32), output : Int32)
         @logger = Logger.new(STDOUT)
@@ -15,6 +17,13 @@ module Fann
         @input_size = input
 
         @nn = LibFANN.create_standard_array(layers.size, layers.to_unsafe)
+      end
+
+      def initialize(path : String)
+        @logger = Logger.new(STDOUT)
+        @nn = LibFANN.create_from_file(path)
+        @input_size = LibFANN.get_num_input(@nn)
+        @output_size = LibFANN.get_num_output(@nn)
       end
 
       def mse
@@ -78,6 +87,10 @@ module Fann
       def run(input : Array(Float64))
         result = LibFANN.run(@nn, input.to_unsafe)
         Slice.new(result, @output_size).to_a
+      end
+
+      def save(path : String) : Int32
+        LibFANN.save(@nn, path)
       end
     end
   end

@@ -76,4 +76,46 @@ describe Fann::Network do
     ann.close
     (result < [0.1]).should be_true
   end
+
+  context "saving current network" do
+    it "saves standard networks" do
+      tempfile = Tempfile.new("foo")
+      File.size(tempfile.path).should eq 0
+      ann = Fann::Network::Standard.new(2, [2], 1)
+      ann.save(tempfile.path)
+      (File.size(tempfile.path) > 0).should be_true
+    end
+
+    it "saves cascade networks" do
+      tempfile = Tempfile.new("bar")
+      File.size(tempfile.path).should eq 0
+      ann = Fann::Network::Cascade.new(2, 1)
+      ann.save(tempfile.path)
+      (File.size(tempfile.path) > 0).should be_true
+    end
+  end
+
+  context "loading a configuration file" do
+    it "loads standard networks" do
+      input = 2
+      output = 1
+      tempfile = Tempfile.new("standard")
+      original = Fann::Network::Standard.new(input, [2], output)
+      original.save(tempfile.path)
+      loaded = Fann::Network::Standard.new(tempfile.path)
+      loaded.input_size.should eq input
+      loaded.output_size.should eq output
+    end
+
+    it "loads cascade networks" do
+      input = 2
+      output = 1
+      tempfile = Tempfile.new("cascade")
+      original = Fann::Network::Cascade.new(input, output)
+      original.save(tempfile.path)
+      loaded = Fann::Network::Cascade.new(tempfile.path)
+      loaded.input_size.should eq input
+      loaded.output_size.should eq output
+    end
+  end
 end
