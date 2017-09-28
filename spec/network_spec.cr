@@ -77,7 +77,7 @@ describe Fann::Network do
     (result < [0.1]).should be_true
   end
 
-  context "#save" do
+  context "saving current network" do
     it "saves standard networks" do
       tempfile = Tempfile.new("foo")
       File.size(tempfile.path).should eq 0
@@ -95,14 +95,14 @@ describe Fann::Network do
     end
   end
 
-  context ".load" do
+  context "loading a configuration file" do
     it "loads standard networks" do
       input = 2
       output = 1
       tempfile = Tempfile.new("standard")
       original = Fann::Network::Standard.new(input, [2], output)
       original.save(tempfile.path)
-      loaded = Fann::Network::Standard.load(tempfile.path)
+      loaded = Fann::Network::Standard.new(tempfile.path)
       loaded.input_size.should eq input
       loaded.output_size.should eq output
     end
@@ -113,7 +113,7 @@ describe Fann::Network do
       tempfile = Tempfile.new("cascade")
       original = Fann::Network::Cascade.new(input, output)
       original.save(tempfile.path)
-      loaded = Fann::Network::Cascade.load(tempfile.path)
+      loaded = Fann::Network::Cascade.new(tempfile.path)
       loaded.input_size.should eq input
       loaded.output_size.should eq output
     end

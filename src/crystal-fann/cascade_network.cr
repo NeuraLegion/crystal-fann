@@ -11,7 +11,8 @@ module Fann
         @nn = LibFANN.create_shortcut(2, input, output)
       end
 
-      def initialize(@nn)
+      def initialize(path : String)
+        @nn = LibFANN.create_from_file(path)
         @input_size = LibFANN.get_num_input(@nn)
         @output_size = LibFANN.get_num_output(@nn)
       end
@@ -53,11 +54,6 @@ module Fann
 
       def save(path : String) : Int32
         LibFANN.save(@nn, path)
-      end
-
-      def self.load(path : String)
-        nn = LibFANN.create_from_file(path)
-        new(nn)
       end
     end
   end

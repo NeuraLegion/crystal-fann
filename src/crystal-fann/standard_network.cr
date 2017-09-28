@@ -19,8 +19,9 @@ module Fann
         @nn = LibFANN.create_standard_array(layers.size, layers.to_unsafe)
       end
 
-      def initialize(@nn)
+      def initialize(path : String)
         @logger = Logger.new(STDOUT)
+        @nn = LibFANN.create_from_file(path)
         @input_size = LibFANN.get_num_input(@nn)
         @output_size = LibFANN.get_num_output(@nn)
       end
@@ -90,11 +91,6 @@ module Fann
 
       def save(path : String) : Int32
         LibFANN.save(@nn, path)
-      end
-
-      def self.load(path : String)
-        nn = LibFANN.create_from_file(path)
-        new(nn)
       end
     end
   end
