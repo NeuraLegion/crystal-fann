@@ -56,7 +56,7 @@ input = [[0.0, 0.0], [0.0, 1.0], [1.0, 0.0], [1.0, 1.0]]
 output = [[0.0], [1.0], [1.0], [0.0]]
 train_data = Fann::TrainData.new(input, output)
 data = train_data.train_data
-ann.train_algorithem(LibFANN::TrainEnum::TrainRprop)
+ann.train_algorithm(LibFANN::TrainEnum::TrainRprop)
 ann.set_hidden_layer_activation_func(LibFANN::ActivationfuncEnum::Linear)
 ann.set_output_layer_activation_func(LibFANN::ActivationfuncEnum::Linear)
 if data
