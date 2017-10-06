@@ -34,7 +34,7 @@ module Fann
         LibFANN.destroy(@nn)
       end
 
-      def train_algorithem(algo : LibFANN::TrainEnum)
+      def train_algorithm(algo : LibFANN::TrainEnum)
         LibFANN.set_training_algorithm(@nn, algo)
       end
 
