@@ -46,7 +46,7 @@ module Fann
         LibFANN.set_activation_function_output(@nn, func)
       end
 
-      def randomie_weights(min : Float64, max : Float64)
+      def randomize_weights(min : Float64, max : Float64)
         # randomize_weights = fann_randomize_weights(ann : Fann*, min_weight : Type, max_weight : Type)
         LibFANN.randomize_weights(@nn, min, max)
       end
