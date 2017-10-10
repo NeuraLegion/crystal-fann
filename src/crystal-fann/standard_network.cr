@@ -34,7 +34,7 @@ module Fann
         LibFANN.destroy(@nn)
       end
 
-      def train_algorithem(algo : LibFANN::TrainEnum)
+      def train_algorithm(algo : LibFANN::TrainEnum)
         LibFANN.set_training_algorithm(@nn, algo)
       end
 
@@ -46,7 +46,7 @@ module Fann
         LibFANN.set_activation_function_output(@nn, func)
       end
 
-      def randomzie_weights(min : Float64, max : Float64)
+      def randomize_weights(min : Float64, max : Float64)
         # randomize_weights = fann_randomize_weights(ann : Fann*, min_weight : Type, max_weight : Type)
         LibFANN.randomize_weights(@nn, min, max)
       end
