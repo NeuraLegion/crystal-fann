@@ -49,10 +49,7 @@ describe Fann::Network do
     output = [[0.0], [1.0], [1.0], [0.0]]
     train_data = Fann::TrainData.new(input, output)
     data = train_data.train_data
-    # ann.train_algorithem(LibFANN::TrainEnum::TrainSarprop)
     ann.randomize_weights(0.0, 1.0)
-    # ann.set_hidden_layer_activation_func(LibFANN::ActivationfuncEnum::LeakyRelu)
-    # ann.set_output_layer_activation_func(LibFANN::ActivationfuncEnum::LeakyRelu)
     if data
       ann.train_batch(data, {:max_runs => 8000, :desired_mse => 0.001, :log_each => 1000})
     end
