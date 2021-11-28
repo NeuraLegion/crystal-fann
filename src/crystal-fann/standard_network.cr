@@ -1,12 +1,12 @@
 module Fann
   module Network
     class Standard
+      Log = ::Log.for("standard")
       property :nn
       getter :input_size
       getter :output_size
 
       def initialize(input : Int32, hidden : Array(Int32), output : Int32)
-        @logger = Logger.new(STDOUT)
         layers = Array(UInt32).new
         layers << input.to_u32
         hidden.each do |l|
@@ -20,7 +20,6 @@ module Fann
       end
 
       def initialize(path : String)
-        @logger = Logger.new(STDOUT)
         @nn = LibFANN.create_from_file(path)
         @input_size = LibFANN.get_num_input(@nn)
         @output_size = LibFANN.get_num_output(@nn)
@@ -70,8 +69,7 @@ module Fann
           LibFANN.train_epoch_irpropm_parallel(@nn, train_data, threads)
           # Check if we need to log MSE
           if log_count >= opts[:log_each]
-            @logger.info("Run: #{runs}, MSE: #{mse}")
-            STDOUT.flush
+            Log.info {"Run: #{runs}, MSE: #{mse}" }
             log_count = 0
           else
             log_count += 1

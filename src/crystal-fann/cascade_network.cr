@@ -1,6 +1,7 @@
 module Fann
   module Network
     class Cascade
+      Log = ::Log.for("cascade")
       property :nn
       getter :input_size
       getter :output_size

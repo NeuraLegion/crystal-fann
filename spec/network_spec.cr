@@ -76,7 +76,7 @@ describe Fann::Network do
 
   context "saving current network" do
     it "saves standard networks" do
-      tempfile = Tempfile.new("foo")
+      tempfile = File.tempfile("foo")
       File.size(tempfile.path).should eq 0
       ann = Fann::Network::Standard.new(2, [2], 1)
       ann.save(tempfile.path)
@@ -84,7 +84,7 @@ describe Fann::Network do
     end
 
     it "saves cascade networks" do
-      tempfile = Tempfile.new("bar")
+      tempfile = File.tempfile("bar")
       File.size(tempfile.path).should eq 0
       ann = Fann::Network::Cascade.new(2, 1)
       ann.save(tempfile.path)
@@ -96,7 +96,7 @@ describe Fann::Network do
     it "loads standard networks" do
       input = 2
       output = 1
-      tempfile = Tempfile.new("standard")
+      tempfile = File.tempfile("standard")
       original = Fann::Network::Standard.new(input, [2], output)
       original.save(tempfile.path)
       loaded = Fann::Network::Standard.new(tempfile.path)
@@ -107,7 +107,7 @@ describe Fann::Network do
     it "loads cascade networks" do
       input = 2
       output = 1
-      tempfile = Tempfile.new("cascade")
+      tempfile = File.tempfile("cascade")
       original = Fann::Network::Cascade.new(input, output)
       original.save(tempfile.path)
       loaded = Fann::Network::Cascade.new(tempfile.path)
