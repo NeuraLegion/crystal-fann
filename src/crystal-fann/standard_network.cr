@@ -69,7 +69,7 @@ module Fann
           LibFANN.train_epoch_irpropm_parallel(@nn, train_data, threads)
           # Check if we need to log MSE
           if log_count >= opts[:log_each]
-            Log.info {"Run: #{runs}, MSE: #{mse}" }
+            Log.info { "Run: #{runs}, MSE: #{mse}" }
             log_count = 0
           else
             log_count += 1
